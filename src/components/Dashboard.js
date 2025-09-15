@@ -30,7 +30,7 @@ ChartJS.register(
   Legend
 );
 
-const API_BASE = process.env.REACT_APP_API_BASE; // 👈 use .env variable
+const API_BASE = process.env.REACT_APP_API_BASE;
 
 const Dashboard = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -47,9 +47,7 @@ const Dashboard = () => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
-  // ----------------------
   // Register
-  // ----------------------
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -65,9 +63,7 @@ const Dashboard = () => {
     }
   };
 
-  // ----------------------
   // Login
-  // ----------------------
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -84,9 +80,7 @@ const Dashboard = () => {
     }
   };
 
-  // ----------------------
   // Fetch data
-  // ----------------------
   const fetchData = useCallback(
     async (authToken = token) => {
       if (!authToken) return;
@@ -126,9 +120,7 @@ const Dashboard = () => {
 
   const applyFilters = () => fetchData();
 
-  // ----------------------
   // CSV Download
-  // ----------------------
   const downloadCSV = async (url, filename) => {
     try {
       const res = await axios.get(`${API_BASE}${url}`, {
@@ -145,9 +137,7 @@ const Dashboard = () => {
     }
   };
 
-  // ----------------------
   // Chart Data
-  // ----------------------
   const lineChartData = {
     labels: ordersByDate.map((d) => {
       const date = new Date(d.date);
@@ -195,9 +185,7 @@ const Dashboard = () => {
     ],
   };
 
-  // ----------------------
   // Logout
-  // ----------------------
   const handleLogout = () => {
     setToken("");
     localStorage.removeItem("token");
@@ -206,9 +194,7 @@ const Dashboard = () => {
     setTopCustomers([]);
   };
 
-  // ----------------------
   // Login/Register Screen
-  // ----------------------
   if (!token) {
     return (
       <div className="login-container">
@@ -256,9 +242,7 @@ const Dashboard = () => {
     );
   }
 
-  // ----------------------
   // Dashboard Screen
-  // ----------------------
   return (
     <div className="dashboard-container">
       {/* Navbar */}
@@ -333,19 +317,19 @@ const Dashboard = () => {
         <>
           {/* Line Chart */}
           <section id="charts" className="chart-container">
-            <h2>📈 Revenue & Orders Trend</h2>
+            <h2>Revenue & Orders Trend</h2>
             <Line data={lineChartData} />
           </section>
 
           {/* Bar Chart */}
           <section className="chart-container">
-            <h2>📊 Orders per Day</h2>
+            <h2>Orders per Day</h2>
             <Bar data={barChartData} />
           </section>
 
           {/* Pie Chart */}
           <section className="chart-container small-chart">
-            <h2>🥧 Revenue Share by Top Customers</h2>
+            <h2>Revenue Share by Top Customers</h2>
             <Pie
               data={pieChartData}
               options={{
@@ -360,7 +344,7 @@ const Dashboard = () => {
 
           {/* Top Customers */}
           <section id="customers" className="table-container">
-            <h2>👑 Top 5 Customers by Spend</h2>
+            <h2>Top 5 Customers by Spend</h2>
             <table>
               <thead>
                 <tr>
@@ -387,5 +371,6 @@ const Dashboard = () => {
     </div>
   );
 };
+
 
 export default Dashboard;
